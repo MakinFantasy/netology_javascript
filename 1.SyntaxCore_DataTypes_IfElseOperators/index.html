@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p> Mini-game "Guess the number"</p>
+    <script>
+        function game () {
+            let randomNum = Math.floor(Math.random() * 1000);
+            console.log(randomNum);
+            let userNum = prompt();
+            let result = null;
+            if (isNaN(userNum) === true) {
+                alert("Введено некорректное значение, перезагрузите страницу")
+            } else {
+                while (result !== "Вы угадали") {
+                    if (userNum < randomNum) {
+                        result = "Ваше число меньше"
+                        alert(result)
+                        userNum = prompt();
+                    }
+                    if (userNum > randomNum) {
+                        result = "Ваше число больше"
+                        alert(result)
+                        userNum = prompt();
+                    }
+                    if (userNum == randomNum) {
+                        result = "Вы угадали";
+                    }
+                }
+                alert(result);
+                alert("Вы выиграли! Хотите сыграть еще раз? Введите да или нет");
+                let userAnswer = prompt();
+                if (userAnswer === "да") {
+                    game();
+                } else {
+                    alert("До встречи!")
+                }
+            }
+        }
+        alert("Добро пожаловать в игру)");
+        game();
+    </script>
+</body>
+</html>
