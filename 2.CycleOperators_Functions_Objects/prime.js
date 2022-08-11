@@ -1,24 +1,18 @@
 function isPrime(num) {
-    if (num === 2) {
-        return true;
-    } else if (num > 1) {
-        for (let i = 2; i < num; i++) {
-            if (num % i !== 0) {
-                return true;
-            } else if (num === i * i) {
-                return false
-            } else {
-                return false;
-            }
-        }
-    } else {
+    if (num === 1) {
         return false;
     }
+    for (let i = 2; i * i <= num; i++) {
+        if (num % i === 0) {
+            return false;
+        }
+    }
+    return true;
 }
 function algo (count) {
     let arr = [];
     let n = 1;
-    while (arr.length !== count) {
+    while (arr.length !== parseInt(count, 10)) {
         if (isPrime(n) === true) {
             arr.push(n);
             n += 1;
@@ -27,13 +21,11 @@ function algo (count) {
             n += 1;
         }
     }
-    console.log(arr)
-    return 0;
+    return arr;
 }
 
 
-let res = algo(1000);
-console.log(res);
+console.log(algo(process.argv[2]));
 
 
 
