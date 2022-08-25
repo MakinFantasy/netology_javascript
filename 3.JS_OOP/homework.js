@@ -116,7 +116,7 @@ class Basket {
     }
 
     get totalAmount() {
-        if (this.goods.size > 0) {
+        if (this.goods.length > 0) {
             let totalAmount = 0;
             this.goods.forEach ((good) => {
                 totalAmount += good.amount;
@@ -129,7 +129,7 @@ class Basket {
 
 
     get totalSum() {
-        if (this.goods.size > 0) {
+        if (this.goods.length > 0) {
             let totalSum = 0;
             this.goods.forEach((good) => {
                 totalSum += good.data.price*good.amount
@@ -163,11 +163,9 @@ class Basket {
     remove(good, amount) {
         this.goods.forEach((item) => {
             if (item.data.id === good.data.id) {
-                if (item.amount - amount === 0) {
-                    this.goods.delete(item)
-                }
-                if (item.amount - amount < 0) {
-                    this.goods.delete(item)
+                if (item.amount - amount <= 0) {
+                    let index = this.goods.indexOf(item)
+                    this.goods.splice(index, 1)
                 }
                 if (item.amount - amount > 0) {
                     item.amount = item.amount - amount
@@ -178,7 +176,6 @@ class Basket {
     }
 
     clear () {
-        console.log(this.goods)
         this.goods = {}
         return this.goods
     }
@@ -244,7 +241,7 @@ console.log(basket.totalSum)
 
 
 console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
-console.log(basket.remove(basket.list[0], 1))
+console.log(basket.remove(basket.list[0], 5))
 console.log(basket.totalAmount)
 console.log(basket.totalSum)
 
@@ -254,8 +251,10 @@ console.log(basket.removeUnavailable())
 console.log(basket.totalAmount)
 console.log(basket.totalSum)
 
-
-console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
-basket.clear()
-console.log(basket.totalAmount)
-console.log(basket.totalSum)
+// Рабочий код, просто дважды корзина будет уже пуста после removeUnavailable
+// console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
+// console.log(basket.list)
+// basket.clear()
+// console.log(basket.list)
+// console.log(basket.totalAmount)
+// console.log(basket.totalSum)
