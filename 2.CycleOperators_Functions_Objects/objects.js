@@ -38,11 +38,7 @@ function basketDeleteItem(number) {
 function basketClear () {
     console.log('Basket:');
     console.log(basket);
-    for (let i in basket) {
-        if (basket.hasOwnProperty(i)) {
-            delete basket[i];
-        }
-    }
+    basket = {};
     console.log('Basket:');
     console.log(basket);
 }
