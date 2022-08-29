@@ -45,7 +45,7 @@ class GoodsList {
         }
         if (this.check === true) {
             for (let i = 0; i <= this.#goods.length - 1; i++) {
-            filterFunc(this.#goods[i], regList)
+                filterFunc(this.#goods[i], regList)
             }
             if (this.sortPrice === true) {
                 if (this.sortDir === true) {
@@ -83,25 +83,15 @@ class GoodsList {
 
 
 class BasketGood extends Good {
-    #list;
-
-    constructor(good, amount) {
-        super(good);
-        this.good = good;
+    constructor(good, amount, id, name, description, sizes, price, available) {
+        super(id, name, description, sizes, price, available);
+        this.id = good.id;
+        this.name = good.name;
+        this.description = good.description;
+        this.sizes = good.sizes;
+        this.price = good.price;
+        this.available = good.available;
         this.amount = amount;
-        this.#list = []
-    }
-
-    upload(item, goodAmount) {
-        this.amount = goodAmount;
-        let newItem = {data: item, amount: this.amount}
-        this.#list.push(newItem)
-        // this.#list = timeList;
-        return this.#list
-    }
-
-    get list () {
-        return this.#list;
     }
 }
 
@@ -132,7 +122,7 @@ class Basket {
         if (this.goods.length > 0) {
             let totalSum = 0;
             this.goods.forEach((good) => {
-                totalSum += good.data.price*good.amount
+                totalSum += good.price*good.amount
             })
             return totalSum
         } else {
@@ -142,13 +132,13 @@ class Basket {
 
     add (good, amount) {
         this.goods.forEach( (item) => {
-            if (item.data.id === good.data.id) {
+            if (item.id === good.id) {
                 item.amount += amount
             }
         })
         let flag = false
         this.goods.forEach( (item) => {
-            if (item.data.id === good.data.id) {
+            if (item.id === good.id) {
                 flag = true
             }
         })
@@ -162,7 +152,7 @@ class Basket {
 
     remove(good, amount) {
         this.goods.forEach((item) => {
-            if (item.data.id === good.data.id) {
+            if (item.id === good.id) {
                 if (item.amount - amount <= 0) {
                     let index = this.goods.indexOf(item)
                     this.goods.splice(index, 1)
@@ -181,7 +171,7 @@ class Basket {
     }
 
     removeUnavailable () {
-        this.goods = this.goods.filter (good => good.data.available === true)
+        this.goods = this.goods.filter (good => good.available === true)
         return this.goods
     }
 }
@@ -217,17 +207,18 @@ goodsListRes.remove(2)
 console.log(goodsListRes.list)
 
 
-basketGood = new BasketGood();
-basketGood.upload(goodsListRes.list[1], 2)
-basketGood.upload(goodsListRes.list[0], 3)
-console.log(basketGood.list)
 
+let productFirst = new BasketGood(goodsListRes.list[1], 2);
+let productSecond = new BasketGood(goodsListRes.list[0], 3);
+console.log(productFirst)
+console.log(productSecond)
+productList = [productFirst, productSecond]
 
-basket = new Basket(basketGood.list)
+console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
+basket = new Basket(productList)
 console.log(basket.list)
 console.log(basket.totalAmount)
 console.log(basket.totalSum)
-
 
 console.log(basket.add(basket.list[0], 2))
 console.log(basket.totalAmount)
