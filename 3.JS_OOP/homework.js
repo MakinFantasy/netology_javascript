@@ -239,7 +239,7 @@ console.log(basket.removeUnavailable())
 console.log(basket.totalAmount)
 console.log(basket.totalSum)
 
-// Рабочий код, просто дважды корзина будет уже пуста после removeUnavailable
+
 console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
 console.log(basket.list)
 basket.clear()
