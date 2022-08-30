@@ -37,16 +37,9 @@ class GoodsList {
 
     get list () {
         let regList = [];
-        const filterFunc = (good, list) => {
-            if (this.filter.test(good.name) === true) {
-                list.push(good)
-            }
-
-        }
         if (this.check === true) {
-            for (let i = 0; i <= this.#goods.length - 1; i++) {
-                filterFunc(this.#goods[i], regList)
-            }
+            regList = this.#goods.filter( good => this.filter.test(good.name))
+            regList = regList.filter( good => good.available === true)
             if (this.sortPrice === true) {
                 if (this.sortDir === true) {
                     regList.sort(
@@ -59,8 +52,7 @@ class GoodsList {
                     )
                 }
             }
-            this.#goods = regList;
-            return this.#goods
+            return regList
         }
         return this.#goods
     }
@@ -180,17 +172,22 @@ class Basket {
 
 const test1 = new Good(1, 'apple', 'test1_1', '10*10*10', 5000, true)
 const test2 = new Good(2, 'banana', 'test2_1', '20*20*20', 10000, false)
-const test3 = new Good(3, 'banana', 'test2_1', '20*20*20', 7000, true)
-const test4 = new Good(4, 'banana', 'test2_1', '20*20*20', 11000, false)
+const test3 = new Good(3, 'elemelon', 'test2_1', '20*20*20', 7000, true)
+const test4 = new Good(4, 'qiwi', 'test2_1', '20*20*20', 11000, false)
+const test5 = new Good(5, 'something', 'just because', '1*2*3', 1, true)
+const test6 = new Good(6, 'nothing', 'try to find', '0*0*0', 666, true)
+const test7 = new Good(7, 'everything', 'all u need', '1*1*1', 10000, true)
+const test8 = new Good(8, 'thing', 'u need that', '2*2*2', 20000, true)
+const test9 = new Good(9, 'test1', 'testOne', '3*3*3', 30000, true)
+const test10 = new Good(10, 'test2', 'testTwo', '4*4*4', 40000, true)
+let goodsList = [test1, test2, test3, test4, test5, test6, test7, test8, test9, test10]
 
-let goodsList = [test1, test2, test3, test4]
-
-let goodsListRes = new GoodsList(/a/i,true, true, true)
+let goodsListRes = new GoodsList(/thing/gi,true, true, false)
 goodsListRes.uploadList(goodsList)
 console.log(goodsListRes.list)
 
 good = {
-    id: 5,
+    id: 11,
     name: 'watermelon',
     description: 'forAddTest',
     sizes: '2*2*2',
@@ -198,6 +195,7 @@ good = {
     available: false,
 }
 goodsListRes.add(good)
+console.log(goodsListRes.list)
 
 test2.setAvailableTrue()
 console.log(goodsListRes.list)
@@ -208,11 +206,16 @@ console.log(goodsListRes.list)
 
 
 
-let productFirst = new BasketGood(goodsListRes.list[1], 2);
-let productSecond = new BasketGood(goodsListRes.list[0], 3);
-console.log(productFirst)
-console.log(productSecond)
-productList = [productFirst, productSecond]
+const product1 = new BasketGood(goodsListRes.list[0], 100);
+const product2 = new BasketGood(goodsListRes.list[1], 200);
+const product3 = new BasketGood(goodsListRes.list[2], 300);
+const product4 = new BasketGood(goodsListRes.list[3], 400);
+const product5 = new BasketGood(goodsListRes.list[4], 500);
+const product6 = new BasketGood(goodsListRes.list[5], 600);
+const product7 = new BasketGood(goodsListRes.list[6], 700);
+const product8 = new BasketGood(goodsListRes.list[7], 800);
+const product9 = new BasketGood(goodsListRes.list[8], 900);
+productList = [product1, product2, product3, product4, product5, product6, product7, product8, product9]
 
 console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
 basket = new Basket(productList)
@@ -225,14 +228,8 @@ console.log(basket.totalAmount)
 console.log(basket.totalSum)
 
 
-console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
-console.log(basket.list)
-console.log(basket.totalAmount)
-console.log(basket.totalSum)
-
-
-console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
-console.log(basket.remove(basket.list[0], 5))
+console.log('HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE')
+console.log(basket.remove(basket.list[0], 105))
 console.log(basket.totalAmount)
 console.log(basket.totalSum)
 
@@ -243,9 +240,9 @@ console.log(basket.totalAmount)
 console.log(basket.totalSum)
 
 // Рабочий код, просто дважды корзина будет уже пуста после removeUnavailable
-// console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
-// console.log(basket.list)
-// basket.clear()
-// console.log(basket.list)
-// console.log(basket.totalAmount)
-// console.log(basket.totalSum)
+console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
+console.log(basket.list)
+basket.clear()
+console.log(basket.list)
+console.log(basket.totalAmount)
+console.log(basket.totalSum)
